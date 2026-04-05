@@ -109,9 +109,16 @@ body {
 .buy-btn {
     background-color: #ffd814;
     border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
+    padding: 12px;
+    border-radius: 8px; /* מראה יותר מודרני */
     cursor: pointer;
-    margin-top: 10px;
-    width: 100%;
+    margin-top: 15px;
+    width: 90%;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.buy-btn:hover {
+    background-color: #f7ca00;
 }
