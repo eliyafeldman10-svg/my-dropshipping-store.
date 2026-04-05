@@ -3,38 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>החנות המקצועית שלי</title>
+    <title>Dropix | חנות האונליין שלך</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
         <nav class="navbar">
-            <div class="logo">MY-STORE</div>
-            <div class="search-bar">
-                <input type="text" placeholder="חפש מוצרים, מותגים ועוד...">
-                <button>חיפוש</button>
-            </div>
+            <div class="logo">DROPIX</div>
             <div class="nav-links">
-                <span id="cart-count">🛒 סל קניות (0)</span>
+                <a href="#" onclick="showSection('support')">שירות לקוחות</a>
+                <a href="#" onclick="showSection('shipping')">משלוחים</a>
+                <span id="cart-count">🛒 (0)</span>
             </div>
         </nav>
     </header>
 
     <section class="hero">
-        <h1>הקולקציה החדשה כבר כאן 🔥</h1>
-        <p>משלוחים חינם לכל הארץ לזמן מוגבל</p>
+        <h1>PREMIUM COLLECTION</h1>
+        <p>מינימליזם. איכות. סטייל.</p>
     </section>
 
     <main>
-        <h2 class="section-title">המוצרים החמים שלנו</h2>
         <div class="products-grid" id="products-container">
             </div>
     </main>
 
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
     <footer>
-        <p>© 2026 כל הזכויות שמורות לחנות שלי</p>
+        <div class="footer-links">
+            <a href="#" onclick="showSection('about')">אודותינו</a> | 
+            <a href="#" onclick="showSection('privacy')">מדיניות פרטיות</a> | 
+            <a href="#" onclick="showSection('terms')">תקנון האתר</a>
+        </div>
+        <p>© 2026 DROPIX. כל הזכויות שמורות.</p>
     </footer>
 
     <script src="app.js"></script>
