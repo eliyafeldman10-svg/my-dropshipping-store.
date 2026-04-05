@@ -1,8 +1,7 @@
 const products = [
-    { id: 1, name: "שעון יד חכם - דגם 2026", price: 199, image: "p1.jpg" },
-    { id: 2, name: "אוזניות אלחוטיות PRO", price: 250, image: "p2.jpg" },
-    { id: 3, name: "מטען מהיר לנייד", price: 89, image: "p3.jpg" }
-];
+   { id: 1, name: "שעון יד חכם - דגם 2026", price: 199, image: "p1.jpg" },
+{ id: 2, name: "אוזניות אלחוטיות PRO", price: 250, image: "p2.jpg" },
+{ id: 3, name: "מטען מהיר לנייד", price: 89, image: "p3.jpg" }
 
 let cartCount = 0;
 const container = document.getElementById('products-container');
