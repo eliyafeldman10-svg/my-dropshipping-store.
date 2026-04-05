@@ -1,7 +1,10 @@
 const products = [
     { id: 1, name: "שעון יד חכם - דגם 2026", price: 199, image: "p1.jpg" },
     { id: 2, name: "אוזניות אלחוטיות PRO", price: 250, image: "p2.jpg" },
-    { id: 3, name: "מטען מהיר לנייד", price: 89, image: "p3.jpg" }
+    { id: 3, name: "מטען מהיר לנייד", price: 89, image: "p3.jpg" },
+    { id: 4, name: "רמקול בלוטות' עמיד במים", price: 149, image: "p4.jpg" },
+    { id: 5, name: "מעמד מגנטי לרכב", price: 45, image: "p5.jpg" },
+    { id: 6, name: "מנורת שולחן חכמה ל-LED", price: 120, image: "p6.jpg" }
 ];
 
 let cartCount = 0;
