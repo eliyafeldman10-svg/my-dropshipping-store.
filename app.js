@@ -51,7 +51,7 @@ function showSection(section) {
     const modalBody = document.getElementById('modal-body');
     
     let content = "";
-    if (section === 'support') content = "<h2>שירות לקוחות</h2><p>זמינים בשבילך במייל: support@dropix.com</p>";
+    if (section === 'support') content = "<h2>שירות לקוחות</h2><p>זמינים בשבילך במייל:<br><strong>dropix.support@gmail.com</strong></p>";
     if (section === 'shipping') content = "<h2>מדיניות משלוחים</h2><p>משלוחים חינם לכל הארץ! זמן אספקה: 7-14 ימי עסקים.</p>";
     if (section === 'privacy') content = "<h2>פרטיות</h2><p>אנו שומרים על הפרטיות שלך ולא מעבירים מידע לצד ג'.</p>";
     if (section === 'terms') content = "<h2>תקנון</h2><p>הרכישה באתר מותרת מגיל 18 ומעלה...</p>";
