@@ -1,162 +1,43 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Montserrat', sans-serif;
+:root {
+    --primary: #000;
+    --secondary: #fff;
+    --gray: #f4f4f4;
+    --accent: #ff0033;
 }
 
-body {
-    background-color: #ffffff;
-    color: #000000;
-}
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #fff; direction: rtl; }
 
-/* סרגל ניווט שחור לבן */
-.navbar {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 20px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+/* Header */
+header { background: var(--primary); color: #fff; padding: 15px 5%; sticky; top: 0; z-index: 100; }
+.header-top { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 28px; font-weight: 800; letter-spacing: 1px; }
+.search-container input { padding: 10px 20px; width: 350px; border-radius: 25px; border: none; outline: none; }
+.header-links span { margin-right: 20px; cursor: pointer; font-size: 14px; }
 
-.logo {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: #000000;
-}
+/* Banner */
+.banner { background: var(--gray); text-align: center; padding: 40px 20px; border-bottom: 1px solid #ddd; }
+.banner h1 { margin: 0; font-size: 24px; }
 
-.nav-links a {
-    color: #000000;
-    text-decoration: none;
-    margin-left: 20px;
-    font-size: 14px;
-    transition: 0.3s;
-}
+/* Grid */
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; padding: 40px 5%; }
+.product-card { border: 1px solid #eee; padding: 15px; border-radius: 12px; text-align: center; transition: 0.3s; }
+.product-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.product-card img { width: 100%; border-radius: 8px; margin-bottom: 15px; }
+.product-card h3 { font-size: 16px; margin: 10px 0; height: 40px; overflow: hidden; }
+.price { font-size: 20px; font-weight: bold; color: var(--primary); }
 
-.nav-links a:hover {
-    text-decoration: underline;
-}
+/* Buttons */
+.buy-btn { background: var(--primary); color: #fff; border: none; padding: 12px; width: 100%; border-radius: 25px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+.buy-btn:hover { opacity: 0.8; }
 
-/* באנר */
-.hero {
-    background-color: #000000;
-    color: #ffffff;
-    height: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
+/* Modal */
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); overflow-y: auto; }
+.modal-content { background: #fff; margin: 5% auto; padding: 25px; width: 90%; max-width: 500px; border-radius: 15px; position: relative; }
+.close-btn { position: absolute; left: 20px; top: 10px; font-size: 28px; cursor: pointer; }
 
-.hero h1 {
-    font-size: 40px;
-    letter-spacing: 5px;
-    margin-bottom: 10px;
-}
-
-/* רשת מוצרים */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
-    padding: 50px 5%;
-}
-
-.product-card {
-    background: #ffffff;
-    border: 1px solid #efefef;
-    padding: 20px;
-    text-align: center;
-    transition: 0.3s ease;
-}
-
-.product-card:hover {
-    border-color: #000000;
-}
-
-.product-card img {
-    max-width: 100%;
-    height: 250px;
-    object-fit: contain;
-}
-
-.product-card h3 {
-    font-size: 16px;
-    font-weight: 400;
-    margin: 15px 0 5px 0;
-    text-transform: uppercase;
-}
-
-.price {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 15px;
-}
-
-.buy-btn {
-    background-color: #000000;
-    color: #ffffff;
-    border: none;
-    padding: 12px;
-    width: 100%;
-    cursor: pointer;
-    font-weight: 700;
-    letter-spacing: 1px;
-    transition: 0.3s;
-}
-
-.buy-btn:hover {
-    background-color: #333333;
-}
-
-/* פוטר */
-footer {
-    background-color: #000000;
-    color: #ffffff;
-    text-align: center;
-    padding: 40px 20px;
-    margin-top: 50px;
-}
-
-.footer-links a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 12px;
-    margin: 0 10px;
-}
-
-/* חלונית קופצת (Modal) */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-}
-
-.modal-content {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 30px;
-    border-radius: 5px;
-    width: 400px;
-    text-align: center;
-    position: relative;
-}
-
-.close {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    font-size: 28px;
-    cursor: pointer;
-}
+/* Footer */
+footer { background: #111; color: #ccc; padding: 40px 5% 20px; margin-top: 50px; }
+.footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; }
+.footer-box h4 { color: #fff; margin-bottom: 15px; }
+.footer-box p { font-size: 14px; cursor: pointer; margin: 5px 0; }
+.footer-bottom { text-align: center; border-top: 1px solid #333; margin-top: 30px; padding-top: 20px; font-size: 12px; }
