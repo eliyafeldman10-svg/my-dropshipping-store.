@@ -3,38 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dropix | חנות הגאדג'טים שלך</title>
+    <title>Dropix | גאדג'טים וטכנולוגיה</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
+
     <header>
-        <div class="logo">Dropix</div>
-        <div class="search-bar">
-            <input type="text" id="search-input" placeholder="חפש מוצר..." onkeyup="filterProducts()">
+        <div class="header-top">
+            <div class="logo">Dropix</div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="חפש מוצר ב-Dropix..." onkeyup="filterProducts()">
+            </div>
+            <div class="header-links">
+                <span onclick="showSection('support')">עזרה</span>
+                <span onclick="showSection('about')">אודות</span>
+            </div>
         </div>
-        <nav>
-            <a href="#" onclick="showSection('support')">שירות לקוחות</a>
-            <a href="#" onclick="showSection('about')">אודות</a>
-        </nav>
     </header>
 
-    <main id="products-container">
+    <div class="banner">
+        <h1>הגאדג'טים הכי חמים של 2026 🔥</h1>
+        <p>משלוח חינם על כל האתר!</p>
+    </div>
+
+    <main id="products-container" class="products-grid">
         </main>
 
     <footer>
-        <p>&copy; 2026 Dropix - כל הזכויות שמורות</p>
-        <p>ליצירת קשר: dropix.help@gmail.com</p>
-        <div class="footer-links">
-            <span onclick="showSection('shipping')">מדיניות משלוחים</span> | 
-            <span onclick="showSection('support')">תמיכה</span>
+        <div class="footer-content">
+            <div class="footer-box">
+                <h4>שירות לקוחות</h4>
+                <p onclick="showSection('support')">צור קשר</p>
+                <p onclick="showSection('shipping')">מעקב משלוחים</p>
+            </div>
+            <div class="footer-box">
+                <h4>אודות</h4>
+                <p>Dropix - האיכות הגבוהה ביותר במחיר המשתלם ביותר.</p>
+                <p>Email: dropix.help@gmail.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Dropix Store | כל הזכויות שמורות
         </div>
     </footer>
 
     <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
+            <span class="close-btn" onclick="closeModal()">&times;</span>
             <div id="modal-body"></div>
         </div>
     </div>
