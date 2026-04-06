@@ -1,3 +1,4 @@
+// הגדרות Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDlSzbnHSzF3pqCSAzP9-4uttDxnyaQOAI",
   authDomain: "dropix-bf5f6.firebaseapp.com",
@@ -33,42 +34,50 @@ function render(arr) {
     `).join('');
 }
 
-function filterProducts() {
-    const term = document.getElementById('search-input').value.toLowerCase();
-    render(products.filter(p => p.name.toLowerCase().includes(term)));
-}
-
 function openModal(id) {
     const p = products.find(item => item.id === id);
-    const myPhone = "972501234567"; // המספר שלך פה!
+    const myPhone = "972501234567"; // המספר שלך
     const waLink = `https://wa.me/${myPhone}?text=שלום, אני רוצה להזמין: ${p.name}`;
 
     document.getElementById('modal-body').innerHTML = `
-        <div style="direction:rtl; text-align:right;">
-            <img src="${p.image}" style="width:100px; border-radius:8px;" onerror="this.src='https://via.placeholder.com/100'">
-            <h2>${p.name}</h2>
-            <div style="background:#f9f9f9; padding:15px; border-radius:10px; margin:15px 0;">
-                <p>מחיר: ₪${p.price}</p>
-                <p>משלוח: <span style="color:green;">חינם</span></p>
-                <h3 style="margin-bottom:0;">סה"כ: ₪${p.price - 5} <small>(הנחת קופון)</small></h3>
+        <div style="direction:rtl; text-align:right; font-size: 14px;">
+            <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 10px;">
+                <img src="${p.image}" style="width:70px; height:70px; object-fit: cover; border-radius:8px;" onerror="this.src='https://via.placeholder.com/70'">
+                <h2 style="font-size: 18px; margin: 0;">${p.name}</h2>
             </div>
-            <button class="buy-btn" style="background:#ff0033;" onclick="window.open('${waLink}')">בצע הזמנה (אלי אקספרס סטייל)</button>
-            <hr>
-            <h4>ביקורות לקוחות</h4>
-            <div id="rev-list" style="max-height:150px; overflow-y:auto; margin-bottom:10px;">טוען...</div>
-            <input type="text" id="r-name" placeholder="השם שלך" style="width:95%; padding:8px; margin-bottom:5px;">
-            <textarea id="r-text" placeholder="מה דעתך?" style="width:95%; padding:8px; height:40px;"></textarea>
-            <button class="buy-btn" style="background:#444;" onclick="addRev(${id})">שלח תגובה</button>
+            
+            <div style="background:#f9f9f9; padding:10px; border-radius:8px; margin-bottom:10px; line-height: 1.4;">
+                <div style="display: flex; justify-content: space-between;"><span>מחיר פריט:</span><span>₪${p.price}</span></div>
+                <div style="display: flex; justify-content: space-between; color: green;"><span>משלוח:</span><span>חינם</span></div>
+                <div style="display: flex; justify-content: space-between; font-weight: bold; border-top: 1px solid #ddd; margin-top: 5px; padding-top: 5px; font-size: 16px;">
+                    <span>סה"כ לתשלום:</span><span>₪${p.price - 5}</span>
+                </div>
+            </div>
+
+            <button class="buy-btn" style="background:#ff0033; padding: 10px; font-size: 16px;" onclick="window.open('${waLink}')">בצע הזמנה בוואטסאפ</button>
+            
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+            
+            <h4 style="margin: 0 0 10px 0;">ביקורות לקוחות</h4>
+            <div id="rev-list" style="max-height:100px; overflow-y:auto; margin-bottom:10px; font-size: 13px; border: 1px solid #f0f0f0; padding: 5px; border-radius: 5px;">טוען...</div>
+            
+            <div style="display: flex; gap: 5px;">
+                <input type="text" id="r-name" placeholder="שם" style="width:30%; padding:5px; border: 1px solid #ddd; border-radius: 4px;">
+                <input type="text" id="r-text" placeholder="הוסף תגובה..." style="width:70%; padding:5px; border: 1px solid #ddd; border-radius: 4px;">
+                <button style="background:#444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;" onclick="addRev(${id})">שלח</button>
+            </div>
         </div>`;
     document.getElementById('modal').style.display = "block";
     loadRev(id);
 }
 
+// פונקציות ה-Firebase נשארות ללא שינוי
 async function addRev(id) {
     const name = document.getElementById('r-name').value;
     const text = document.getElementById('r-text').value;
     if(!name || !text) return;
     await db.collection("reviews").add({ productId: id, name, text, time: firebase.firestore.FieldValue.serverTimestamp() });
+    document.getElementById('r-text').value = "";
     loadRev(id);
 }
 
@@ -78,13 +87,13 @@ async function loadRev(id) {
     list.innerHTML = snap.empty ? "אין תגובות." : "";
     snap.forEach(doc => {
         const r = doc.data();
-        list.innerHTML += `<div style="border-bottom:1px solid #eee; padding:5px;"><strong>${r.name}:</strong> ${r.text}</div>`;
+        list.innerHTML += `<div style="border-bottom:1px solid #eee; padding:3px 0;"><strong>${r.name}:</strong> ${r.text}</div>`;
     });
 }
 
-function showSection(s) {
-    let msg = s === 'support' ? "דוא\"ל: dropix.help@gmail.com | וואטסאפ: 050-1234567" : "משלוחים חינם לכל חלקי הארץ!";
-    alert(msg);
+function filterProducts() {
+    const term = document.getElementById('search-input').value.toLowerCase();
+    render(products.filter(p => p.name.toLowerCase().includes(term)));
 }
 
 function closeModal() { document.getElementById('modal').style.display = "none"; }
