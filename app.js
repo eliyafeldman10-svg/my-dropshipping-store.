@@ -1,4 +1,3 @@
-// הגדרות Firebase שלך
 const firebaseConfig = {
   apiKey: "AIzaSyDlSzbnHSzF3pqCSAzP9-4uttDxnyaQOAI",
   authDomain: "dropix-bf5f6.firebaseapp.com",
@@ -11,77 +10,81 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// רשימת 6 המוצרים המלאה
 const products = [
     { id: 1, name: "שעון יד חכם - דגם 2026", price: 199, image: "p1.jpg" },
     { id: 2, name: "אוזניות אלחוטיות PRO", price: 250, image: "p2.jpg" },
     { id: 3, name: "מטען מהיר לנייד", price: 89, image: "p3.jpg" },
-    { id: 4, name: "רמקול בלוטות' Ortizan – עמיד במים", price: 149, image: "p4.jpg" },
-    { id: 5, name: "מעמד מגנטי לנייד לרכב", price: 45, image: "p5.jpg" },
+    { id: 4, name: "רמקול בלוטות' Ortizan", price: 149, image: "p4.jpg" },
+    { id: 5, name: "מעמד מגנטי לרכב", price: 45, image: "p5.jpg" },
     { id: 6, name: "מנורת שולחן חכמה LED", price: 120, image: "p6.jpg" }
 ];
 
-window.onload = () => renderProducts(products);
+window.onload = () => render(products);
 
-function renderProducts(list) {
-    const container = document.getElementById('products-container');
-    container.innerHTML = list.map(p => `
+function render(arr) {
+    const cont = document.getElementById('products-container');
+    cont.innerHTML = arr.map(p => `
         <div class="product-card">
             <img src="${p.image}" onerror="this.src='https://via.placeholder.com/250'">
             <h3>${p.name}</h3>
             <p class="price">₪${p.price}</p>
-            <button class="buy-btn" onclick="openPayment(${p.id})">פרטים ורכישה</button>
+            <button class="buy-btn" onclick="openModal(${p.id})">צפה בפרטים</button>
         </div>
     `).join('');
 }
 
 function filterProducts() {
     const term = document.getElementById('search-input').value.toLowerCase();
-    renderProducts(products.filter(p => p.name.toLowerCase().includes(term)));
+    render(products.filter(p => p.name.toLowerCase().includes(term)));
 }
 
-function openPayment(id) {
-    const p = products.find(prod => prod.id === id);
-    const modal = document.getElementById('modal');
+function openModal(id) {
+    const p = products.find(item => item.id === id);
+    const myPhone = "972501234567"; // המספר שלך פה!
+    const waLink = `https://wa.me/${myPhone}?text=שלום, אני רוצה להזמין: ${p.name}`;
+
     document.getElementById('modal-body').innerHTML = `
         <div style="direction:rtl; text-align:right;">
+            <img src="${p.image}" style="width:100px; border-radius:8px;" onerror="this.src='https://via.placeholder.com/100'">
             <h2>${p.name}</h2>
-            <p>מחיר: ₪${p.price}</p>
-            <button class="buy-btn" style="background:#25D366;" onclick="window.open('https://wa.me/972501234567?text=אני רוצה להזמין את ${p.name}')">המשך לרכישה בוואטסאפ</button>
+            <div style="background:#f9f9f9; padding:15px; border-radius:10px; margin:15px 0;">
+                <p>מחיר: ₪${p.price}</p>
+                <p>משלוח: <span style="color:green;">חינם</span></p>
+                <h3 style="margin-bottom:0;">סה"כ: ₪${p.price - 5} <small>(הנחת קופון)</small></h3>
+            </div>
+            <button class="buy-btn" style="background:#ff0033;" onclick="window.open('${waLink}')">בצע הזמנה (אלי אקספרס סטייל)</button>
             <hr>
-            <h3>תגובות</h3>
-            <div id="reviews-list">טוען...</div>
-            <input type="text" id="rev-name" placeholder="שם">
-            <textarea id="rev-text" placeholder="תגובה"></textarea>
-            <button onclick="saveReview(${id})">שלח</button>
+            <h4>ביקורות לקוחות</h4>
+            <div id="rev-list" style="max-height:150px; overflow-y:auto; margin-bottom:10px;">טוען...</div>
+            <input type="text" id="r-name" placeholder="השם שלך" style="width:95%; padding:8px; margin-bottom:5px;">
+            <textarea id="r-text" placeholder="מה דעתך?" style="width:95%; padding:8px; height:40px;"></textarea>
+            <button class="buy-btn" style="background:#444;" onclick="addRev(${id})">שלח תגובה</button>
         </div>`;
-    modal.style.display = "block";
-    loadReviews(id);
+    document.getElementById('modal').style.display = "block";
+    loadRev(id);
 }
 
-async function saveReview(productId) {
-    const name = document.getElementById('rev-name').value;
-    const text = document.getElementById('rev-text').value;
+async function addRev(id) {
+    const name = document.getElementById('r-name').value;
+    const text = document.getElementById('r-text').value;
     if(!name || !text) return;
-    await db.collection("reviews").add({ productId, name, text, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
-    loadReviews(productId);
+    await db.collection("reviews").add({ productId: id, name, text, time: firebase.firestore.FieldValue.serverTimestamp() });
+    loadRev(id);
 }
 
-async function loadReviews(productId) {
-    const list = document.getElementById('reviews-list');
-    const snap = await db.collection("reviews").where("productId", "==", productId).orderBy("timestamp", "desc").get();
-    list.innerHTML = snap.empty ? "אין תגובות" : "";
+async function loadRev(id) {
+    const list = document.getElementById('rev-list');
+    const snap = await db.collection("reviews").where("productId", "==", id).orderBy("time", "desc").get();
+    list.innerHTML = snap.empty ? "אין תגובות." : "";
     snap.forEach(doc => {
         const r = doc.data();
-        list.innerHTML += `<p><strong>${r.name}:</strong> ${r.text}</p>`;
+        list.innerHTML += `<div style="border-bottom:1px solid #eee; padding:5px;"><strong>${r.name}:</strong> ${r.text}</div>`;
     });
 }
 
-function showSection(type) {
-    const modal = document.getElementById('modal');
-    let content = type === 'support' ? "צור קשר: dropix.help@gmail.com" : "משלוחים חינם לכל הארץ!";
-    document.getElementById('modal-body').innerHTML = `<div style="direction:rtl; padding:20px;">${content}</div>`;
-    modal.style.display = "block";
+function showSection(s) {
+    let msg = s === 'support' ? "דוא\"ל: dropix.help@gmail.com | וואטסאפ: 050-1234567" : "משלוחים חינם לכל חלקי הארץ!";
+    alert(msg);
 }
 
 function closeModal() { document.getElementById('modal').style.display = "none"; }
