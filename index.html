@@ -3,52 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dropix | חנות האונליין שלך</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Dropix | חנות הטירוף שלי</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+        #products-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: auto; }
+        .product-card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .product-card img { max-width: 100%; border-radius: 8px; }
+        .price { font-size: 20px; color: #f03; font-weight: bold; }
+        .buy-btn { background: #ff0033; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+        
+        /* עיצוב המודל בסגנון אלי-אקספרס */
+        #modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); overflow-y: auto; }
+        .modal-content { background: white; margin: 5% auto; padding: 20px; width: 90%; max-width: 500px; border-radius: 15px; position: relative; }
+        .summary-box { background: #f9f9f9; padding: 15px; border-radius: 10px; margin: 15px 0; }
+        .summary-line { display: flex; justify-content: space-between; margin-bottom: 8px; color: #666; font-size: 14px; }
+        .total-line { display: flex; justify-content: space-between; border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px; font-weight: bold; font-size: 18px; color: #000; }
+        .order-btn { background: #ff0033; color: white; width: 100%; padding: 16px; border: none; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; }
+        .review-item { background: #fff; border-bottom: 1px solid #eee; padding: 10px; position: relative; }
+        .delete-btn { color: #ff4d4d; cursor: pointer; font-size: 11px; position: absolute; left: 5px; top: 5px; }
+    </style>
 </head>
 <body>
 
-    <header>
-        <nav class="navbar">
-            <div class="logo">DROPIX</div>
-            <div class="nav-links">
-                <a href="#" onclick="showSection('support')">שירות לקוחות</a>
-                <a href="#" onclick="showSection('shipping')">משלוחים</a>
-                <span id="cart-count">🛒 (0)</span>
-            </div>
-        </nav>
-    </header>
+    <h1 style="text-align: center;">Dropix 🚀</h1>
+    <div id="products-container"></div>
 
-    <section class="hero">
-        <h1>PREMIUM COLLECTION</h1>
-        <p>מינימליזם. איכות. סטייל.</p>
-    </section>
-
-    <main>
-        <div class="products-grid" id="products-container">
-            </div>
-    </main>
-
-    <div id="modal" class="modal">
+    <div id="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
+            <span onclick="closeModal()" style="position: absolute; left: 15px; top: 10px; cursor: pointer; font-size: 24px;">&times;</span>
             <div id="modal-body"></div>
         </div>
     </div>
 
-    <footer>
-        <div class="footer-links">
-            <a href="#" onclick="showSection('about')">אודותינו</a> | 
-            <a href="#" onclick="showSection('privacy')">מדיניות פרטיות</a> | 
-            <a href="#" onclick="showSection('terms')">תקנון האתר</a>
-        </div>
-        <p>© 2026 DROPIX. כל הזכויות שמורות.</p>
-    </footer>
-
-   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    
     <script src="app.js"></script>
 </body>
 </html>
